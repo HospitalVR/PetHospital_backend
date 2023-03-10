@@ -3,6 +3,7 @@ package com.rjsj.pethospital.controller;
 import com.rjsj.pethospital.entity.Case;
 import com.rjsj.pethospital.entity.FullCase;
 import com.rjsj.pethospital.service.CaseService;
+import com.rjsj.pethospital.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,9 @@ public class CaseController {
 
     @Autowired
     private CaseService caseService;
+
+    @Autowired
+    private FileService fileService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseEntity<List<Case>> findAll() {
@@ -87,8 +93,39 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<Case> save(@RequestBody Case hospitalCase) {
-        return ResponseEntity.status(HttpStatus.OK).body(caseService.save(hospitalCase));
+    public ResponseEntity<FullCase> save(@RequestBody Case hospitalCase) {
+        Case saveCase = caseService.save(hospitalCase);
+        return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));
+    }
+
+    @RequestMapping(value = "/saveFile", method = RequestMethod.POST)
+    public ResponseEntity<FullCase> saveFile(HttpServletRequest request) {
+        Case hospitalCase = new Case();
+        hospitalCase.setType(request.getParameter("type"));
+        hospitalCase.setName1(request.getParameter("name1"));
+        hospitalCase.setTreat1(request.getParameter("treat1"));
+        hospitalCase.setCheck1(request.getParameter("check1"));
+        hospitalCase.setResult1(request.getParameter("result1"));
+        hospitalCase.setPlan1(request.getParameter("plan1"));
+
+        MultipartHttpServletRequest files = (MultipartHttpServletRequest) request;
+        hospitalCase.setName2(fileService.saveFile("case-" + hospitalCase.getName1() + "-1.jpg", files.getFile("name2")));
+        hospitalCase.setName3(fileService.saveFile("case-" + hospitalCase.getName1() + "-1.mp4", files.getFile("name3")));
+
+        hospitalCase.setTreat2(fileService.saveFile("case-" + hospitalCase.getName1() + "-2.jpg", files.getFile("name2")));
+        hospitalCase.setTreat3(fileService.saveFile("case-" + hospitalCase.getName1() + "-2.mp4", files.getFile("name3")));
+
+        hospitalCase.setCheck2(fileService.saveFile("case-" + hospitalCase.getName1() + "-3.jpg", files.getFile("name2")));
+        hospitalCase.setCheck3(fileService.saveFile("case-" + hospitalCase.getName1() + "-3.mp4", files.getFile("name3")));
+
+        hospitalCase.setResult2(fileService.saveFile("case-" + hospitalCase.getName1() + "-4.jpg", files.getFile("name2")));
+        hospitalCase.setResult3(fileService.saveFile("case-" + hospitalCase.getName1() + "-4.mp4", files.getFile("name3")));
+
+        hospitalCase.setPlan2(fileService.saveFile("case-" + hospitalCase.getName1() + "-5.jpg", files.getFile("name2")));
+        hospitalCase.setPlan3(fileService.saveFile("case-" + hospitalCase.getName1() + "-5.mp4", files.getFile("name3")));
+
+        Case saveCase = caseService.save(hospitalCase);
+        return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));
     }
 
     @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
