@@ -7,6 +7,11 @@ import java.util.List;
 
 public interface CaseRepository extends JpaRepository<Case, Long> {
 
-    List<Case> findCasesByType(String type);
+    List<Case> findAllByType(long type);
 
+    List<Case> findAllByName1Contains(String name1);
+
+    Case findByName1(String name1);
+
+    void deleteByName1(String name1);
 }
