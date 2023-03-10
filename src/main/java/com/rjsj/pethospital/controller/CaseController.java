@@ -1,6 +1,7 @@
 package com.rjsj.pethospital.controller;
 
 import com.rjsj.pethospital.entity.Case;
+import com.rjsj.pethospital.entity.FullCase;
 import com.rjsj.pethospital.service.CaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,13 +73,13 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/findByName", method = RequestMethod.GET)
-    public ResponseEntity<Case> findByName(String name) {
+    public ResponseEntity<FullCase> findByName(String name) {
         try {
             Case hospitalCase = caseService.findByName(name);
             if (hospitalCase == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
-            return ResponseEntity.status(HttpStatus.OK).body(hospitalCase);
+            return ResponseEntity.status(HttpStatus.OK).body(new FullCase(hospitalCase));
         } catch (Exception e) {
             e.printStackTrace();
         }

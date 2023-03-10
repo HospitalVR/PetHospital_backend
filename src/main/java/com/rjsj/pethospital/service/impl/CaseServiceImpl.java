@@ -29,7 +29,7 @@ public class CaseServiceImpl implements CaseService {
         List<CaseType> caseTypes = caseTypeRepository.findAll();
         Map map = new HashMap<String, List<String>>();
         for (CaseType caseType : caseTypes) {
-            List<Case> cases = caseRepository.findAllByType(caseType.getId());
+            List<Case> cases = caseRepository.findAllByType(caseType.getType());
             List<String> list = new ArrayList<>();
             for (Case hospitalCase : cases)
                 list.add(hospitalCase.getName1());

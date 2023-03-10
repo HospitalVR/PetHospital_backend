@@ -14,7 +14,7 @@ public class Case {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long type;
+    private String type;
 
     private String name1;
     private String name2;
