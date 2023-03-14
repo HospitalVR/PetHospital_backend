@@ -11,7 +11,7 @@
  Target Server Version : 50515
  File Encoding         : 65001
 
- Date: 14/03/2023 16:28:47
+ Date: 14/03/2023 16:49:05
 */
 
 SET NAMES utf8mb4;
@@ -23,22 +23,22 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `case_management`;
 CREATE TABLE `case_management`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `name1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '疾病名称',
-  `name2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `name3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `treat1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '接诊文本',
-  `treat2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `treat3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `check1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '病例检查',
-  `check2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `check3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `result1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '诊断结果',
-  `result2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `result3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `plan1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '治疗方案',
-  `plan2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `plan3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `type` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name1` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '疾病名称',
+  `name2` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `name3` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `treat1` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '接诊文本',
+  `treat2` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `treat3` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `check1` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '病例检查',
+  `check2` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `check3` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `result1` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '诊断结果',
+  `result2` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `result3` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `plan1` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '治疗方案',
+  `plan2` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `plan3` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
