@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "dc06da5a-c90a-4d55-930b-fd7df6a81e9d",
+		"name": "Pet Hospital",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Case Management",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/findAll",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"findAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllByType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/findAllByType",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"findAllByType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findAllByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/findAllByName?name=病",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"findAllByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "病"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/findById?id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"findById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/findByName?name=糖尿病",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"findByName"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "糖尿病"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "其他",
+									"type": "default"
+								},
+								{
+									"key": "name1",
+									"value": "糖尿病",
+									"type": "default"
+								},
+								{
+									"key": "name2",
+									"type": "file",
+									"src": "/E:/res/test.jpg"
+								},
+								{
+									"key": "name3",
+									"type": "file",
+									"src": "/E:/res/test.mp4"
+								},
+								{
+									"key": "treat1",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "treat2",
+									"type": "file",
+									"src": "/E:/res/test.jpg"
+								},
+								{
+									"key": "treat3",
+									"type": "file",
+									"src": "/E:/res/test.mp4"
+								},
+								{
+									"key": "check1",
+									"value": "2",
+									"type": "default"
+								},
+								{
+									"key": "result1",
+									"value": "3",
+									"type": "default"
+								},
+								{
+									"key": "plan1",
+									"value": "4",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/save",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8888/case/deleteById?id=3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8888",
+							"path": [
+								"case",
+								"deleteById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
