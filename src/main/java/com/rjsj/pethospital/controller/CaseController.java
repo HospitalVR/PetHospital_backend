@@ -93,13 +93,7 @@ public class CaseController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<FullCase> save(@RequestBody Case hospitalCase) {
-        Case saveCase = caseService.save(hospitalCase);
-        return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));
-    }
-
-    @RequestMapping(value = "/saveFile", method = RequestMethod.POST)
-    public ResponseEntity<FullCase> saveFile(HttpServletRequest request) {
+    public ResponseEntity<FullCase> save(HttpServletRequest request) {
         Case hospitalCase = new Case();
         hospitalCase.setType(request.getParameter("type"));
         hospitalCase.setName1(request.getParameter("name1"));
@@ -109,20 +103,20 @@ public class CaseController {
         hospitalCase.setPlan1(request.getParameter("plan1"));
 
         MultipartHttpServletRequest files = (MultipartHttpServletRequest) request;
-        hospitalCase.setName2(fileService.saveFile("case-" + hospitalCase.getName1() + "-1.jpg", files.getFile("name2")));
-        hospitalCase.setName3(fileService.saveFile("case-" + hospitalCase.getName1() + "-1.mp4", files.getFile("name3")));
+        hospitalCase.setName2(fileService.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name2")));
+        hospitalCase.setName3(fileService.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name3")));
 
-        hospitalCase.setTreat2(fileService.saveFile("case-" + hospitalCase.getName1() + "-2.jpg", files.getFile("name2")));
-        hospitalCase.setTreat3(fileService.saveFile("case-" + hospitalCase.getName1() + "-2.mp4", files.getFile("name3")));
+        hospitalCase.setTreat2(fileService.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("treat2")));
+        hospitalCase.setTreat3(fileService.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("treat3")));
 
-        hospitalCase.setCheck2(fileService.saveFile("case-" + hospitalCase.getName1() + "-3.jpg", files.getFile("name2")));
-        hospitalCase.setCheck3(fileService.saveFile("case-" + hospitalCase.getName1() + "-3.mp4", files.getFile("name3")));
+        hospitalCase.setCheck2(fileService.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("check2")));
+        hospitalCase.setCheck3(fileService.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("check3")));
 
-        hospitalCase.setResult2(fileService.saveFile("case-" + hospitalCase.getName1() + "-4.jpg", files.getFile("name2")));
-        hospitalCase.setResult3(fileService.saveFile("case-" + hospitalCase.getName1() + "-4.mp4", files.getFile("name3")));
+        hospitalCase.setResult2(fileService.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result2")));
+        hospitalCase.setResult3(fileService.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result3")));
 
-        hospitalCase.setPlan2(fileService.saveFile("case-" + hospitalCase.getName1() + "-5.jpg", files.getFile("name2")));
-        hospitalCase.setPlan3(fileService.saveFile("case-" + hospitalCase.getName1() + "-5.mp4", files.getFile("name3")));
+        hospitalCase.setPlan2(fileService.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan2")));
+        hospitalCase.setPlan3(fileService.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan3")));
 
         Case saveCase = caseService.save(hospitalCase);
         return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));

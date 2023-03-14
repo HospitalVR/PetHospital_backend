@@ -14,7 +14,8 @@ public class FileServiceImpl implements FileService {
     public String saveFile(String fileName, MultipartFile file) {
         if (file == null)
             return null;
-        File newFile = new File("E:/image", fileName);
+        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        File newFile = new File("E:/res", fileName + suffix);
         try {
             file.transferTo(newFile);
         } catch (IOException e) {
