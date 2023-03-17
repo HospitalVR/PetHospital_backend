@@ -1,6 +1,5 @@
 package com.rjsj.pethospital.repository;
 
-import com.rjsj.pethospital.entity.Case;
 import com.rjsj.pethospital.entity.PositionJob;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
