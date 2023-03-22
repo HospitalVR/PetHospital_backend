@@ -11,7 +11,7 @@
  Target Server Version : 50515
  File Encoding         : 65001
 
- Date: 22/03/2023 17:07:47
+ Date: 22/03/2023 23:15:18
 */
 
 SET NAMES utf8mb4;
@@ -152,41 +152,19 @@ CREATE TABLE `sys_user`  (
   `phonenumber` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
   `sex` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户性别（0男，1女，2未知）',
   `avatar` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `user_type` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '用户类型（0管理员，1普通用户）',
+  `user_type` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '用户类型',
   `create_by` bigint(20) NULL DEFAULT NULL COMMENT '创建人的用户id',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` bigint(20) NULL DEFAULT NULL COMMENT '更新人',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `del_flag` int(11) NULL DEFAULT 0 COMMENT '删除标志（0代表未删除，1代表已删除）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
 -- ----------------------------
--- Table structure for user_info
+-- Records of sys_user
 -- ----------------------------
-DROP TABLE IF EXISTS `user_info`;
-CREATE TABLE `user_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `account` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '账号',
-  `user_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '用户名',
-  `password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '用户密码',
-  `last_login_time` datetime NULL DEFAULT NULL COMMENT '上一次登录时间',
-  `enabled` tinyint(4) NULL DEFAULT NULL COMMENT '账号是否可用',
-  `not_expired` tinyint(4) NULL DEFAULT NULL COMMENT '是否过期',
-  `account_not_locked` tinyint(4) NULL DEFAULT NULL COMMENT '账号是否锁定',
-  `credentials_not_expired` tinyint(4) NULL DEFAULT NULL COMMENT '证书（密码）是否过期',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
-  `create_user` int(11) NULL DEFAULT NULL COMMENT '创建人',
-  `update_user` int(11) NULL DEFAULT NULL COMMENT '修改人',
-  `type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
-
--- ----------------------------
--- Records of user_info
--- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'user1', 'user1', '$2a$10$5.oYd3mmC7VclR7nfUzqOeo8Bhkr0XKuSiw1dyzA9j.4sz0g.S0fu', '2019-09-04 20:25:36', 1, 1, 1, 1, '2019-08-29 06:28:36', '2019-09-04 20:25:36', 1, 1, 'admin');
-INSERT INTO `user_info` VALUES (2, 'user2', 'user2', '123456', '2023-03-22 14:27:25', NULL, NULL, NULL, NULL, '2023-03-22 14:27:10', '2023-03-22 14:27:14', 1, 1, 'user');
+INSERT INTO `sys_user` VALUES (2, 'admin', 'NULL', '$2a$10$hyF3Hy.iiJBsQ9dA12rAWuJXXmO.CTotq0rhnaSvxEjLUdE0zV9OK', '0', NULL, NULL, NULL, NULL, 'admin', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `sys_user` VALUES (3, 'user1', 'NULL', '$2a$10$hyF3Hy.iiJBsQ9dA12rAWuJXXmO.CTotq0rhnaSvxEjLUdE0zV9OK', '0', NULL, NULL, NULL, NULL, 'user', NULL, NULL, NULL, NULL, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
