@@ -1,5 +1,10 @@
 # Pet Hospital
 
+### Install Database
+
+- MySQL
+- Redis
+
 ## How to run backend
 
 1. import hospital.sql to mysql
