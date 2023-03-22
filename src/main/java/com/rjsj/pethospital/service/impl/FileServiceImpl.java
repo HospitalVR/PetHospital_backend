@@ -6,13 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 @Service
 public class FileServiceImpl implements FileService {
 
     @Override
     public String saveFile(String fileName, MultipartFile file) {
-        if (file == null)
+        if (file == null || Objects.equals(file.getOriginalFilename(), ""))
             return null;
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
         File newFile = new File("E:/res", fileName + suffix);
