@@ -29,8 +29,6 @@ public class CaseController {
     public ResponseEntity<List<Case>> findAll() {
         try {
             List<Case> cases = caseService.findAll();
-            if (cases.isEmpty())
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             return ResponseEntity.status(HttpStatus.OK).body(cases);
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,8 +40,6 @@ public class CaseController {
     public ResponseEntity<Map<String, List<String>>> findAllCaseByType() {
         try {
             Map<String, List<String>> map = caseService.findAllByType();
-            if (map.isEmpty())
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             return ResponseEntity.status(HttpStatus.OK).body(map);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,9 +62,6 @@ public class CaseController {
     public ResponseEntity<Case> findById(Long id) {
         try {
             Case hospitalCase = caseService.findById(id).orElse(null);
-            if (hospitalCase == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
             return ResponseEntity.status(HttpStatus.OK).body(hospitalCase);
         } catch (Exception e) {
             e.printStackTrace();
