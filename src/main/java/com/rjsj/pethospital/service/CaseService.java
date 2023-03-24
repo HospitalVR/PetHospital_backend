@@ -1,7 +1,9 @@
 package com.rjsj.pethospital.service;
 
 import com.rjsj.pethospital.entity.Case;
+import com.rjsj.pethospital.entity.FullCase;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +21,8 @@ public interface CaseService {
     Case findByName(String name);
 
     Case save(Case hospitalCase);
+
+    FullCase save(HttpServletRequest request);
 
     void deleteById(Long id);
 
