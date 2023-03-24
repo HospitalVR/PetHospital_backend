@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -23,23 +25,36 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
+        user.setUserType("user");
         Optional<User> exist = userRepository.findByUserName(user.getUserName());
-        exist.ifPresent(value -> {
-            user.setId(value.getId());
-            user.setPassword(value.getPassword());
-        });
+        if (exist.isPresent()) {
+            user.setId(exist.get().getId());
+            user.setPassword(exist.get().getPassword());
+        } else {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
     @Override
-    public User updatePassword(String userName, String password) {
+    public Map<String, String> updatePassword(String userName, String oldPassword, String newPassword) {
+        Map<String, String> map = new HashMap<>();
         Optional<User> user = userRepository.findByUserName(userName);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.ifPresent(value -> {
-            value.setPassword(passwordEncoder.encode(password));
-            userRepository.save(value);
+            if (!passwordEncoder.matches(oldPassword, value.getPassword())) {
+                map.put("message", "原密码错误");
+            } else {
+                value.setPassword(passwordEncoder.encode(oldPassword));
+                userRepository.save(value);
+                map.put("message", "密码修改成功");
+            }
         });
-        return user.orElse(null);
+        if (!map.containsKey("message")) {
+            map.put("message", "用户不存在");
+        }
+        return map;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.rjsj.pethospital.service;
 import com.rjsj.pethospital.entity.User;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -10,7 +11,7 @@ public interface UserService {
 
     User save(User user);
 
-    User updatePassword(String userName, String password);
+    Map<String, String> updatePassword(String userName, String oldPassword, String newPassword);
 
     void deleteByName(String name);
 
