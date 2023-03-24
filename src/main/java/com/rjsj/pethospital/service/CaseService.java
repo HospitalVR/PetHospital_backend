@@ -20,8 +20,6 @@ public interface CaseService {
 
     Case findByName(String name);
 
-    Case save(Case hospitalCase);
-
     FullCase save(HttpServletRequest request);
 
     void deleteById(Long id);

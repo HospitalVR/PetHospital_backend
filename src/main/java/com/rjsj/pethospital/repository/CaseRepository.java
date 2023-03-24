@@ -3,6 +3,7 @@ package com.rjsj.pethospital.repository;
 import com.rjsj.pethospital.entity.Case;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CaseRepository extends JpaRepository<Case, Long> {
@@ -13,5 +14,6 @@ public interface CaseRepository extends JpaRepository<Case, Long> {
 
     Case findByName1(String name1);
 
+    @Transactional
     void deleteByName1(String name1);
 }

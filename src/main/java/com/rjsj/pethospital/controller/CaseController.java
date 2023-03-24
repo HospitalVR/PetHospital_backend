@@ -83,13 +83,13 @@ public class CaseController {
         return ResponseEntity.status(HttpStatus.OK).body(caseService.save(request));
     }
 
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
         caseService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/deleteByName", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
         caseService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();

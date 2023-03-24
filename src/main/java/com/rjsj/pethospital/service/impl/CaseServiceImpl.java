@@ -61,8 +61,7 @@ public class CaseServiceImpl implements CaseService {
         return caseRepository.findByName1(name);
     }
 
-    @Override
-    public Case save(Case hospitalCase) {
+    private Case save(Case hospitalCase) {
         Case caseExist = caseRepository.findByName1(hospitalCase.getName1());
         if (caseExist != null) {
             hospitalCase.setId(caseExist.getId());
