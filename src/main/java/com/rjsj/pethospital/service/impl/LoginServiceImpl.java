@@ -62,10 +62,10 @@ public class LoginServiceImpl implements LoginService {
         try {
             Claims claims = JwtUtil.parseJWT(token);
             userid = claims.getSubject();
-            Object object = redisCache.getCacheObject("login:" + userid);
+            LoginUser user = redisCache.getCacheObject("login:" + userid);
+            map.put("userName", user.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("token非法");
         }
         return map;
     }

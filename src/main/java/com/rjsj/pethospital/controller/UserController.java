@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -34,7 +35,11 @@ public class UserController {
 
     @RequestMapping(value = "/verify", method = RequestMethod.POST)
     public ResponseEntity verify(HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(loginService.verify(request.getHeader("token")));
+        Map<String, String> map = loginService.verify(request.getHeader("token"));
+        if (map.containsKey("userName")) {
+            return ResponseEntity.status(HttpStatus.OK).body(map);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
