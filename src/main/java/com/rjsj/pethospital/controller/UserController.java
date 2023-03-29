@@ -33,8 +33,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(loginService.logout());
     }
 
-    @RequestMapping(value = "/verify", method = RequestMethod.POST)
+    @RequestMapping(value = "/verify", method = RequestMethod.GET)
     public ResponseEntity verify(HttpServletRequest request) {
+        System.out.println("verify");
         Map<String, String> map = loginService.verify(request.getHeader("token"));
         if (map.containsKey("userName")) {
             return ResponseEntity.status(HttpStatus.OK).body(map);
