@@ -32,6 +32,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(loginService.logout());
     }
 
+    @RequestMapping(value = "/verify", method = RequestMethod.POST)
+    public ResponseEntity verify(HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(loginService.verify(request.getHeader("token")));
+    }
+
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAllCommonUser());

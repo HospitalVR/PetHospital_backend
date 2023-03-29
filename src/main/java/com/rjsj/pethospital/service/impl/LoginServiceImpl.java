@@ -5,6 +5,7 @@ import com.rjsj.pethospital.entity.LoginUser;
 import com.rjsj.pethospital.entity.User;
 import com.rjsj.pethospital.service.LoginService;
 import com.rjsj.pethospital.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -51,6 +52,21 @@ public class LoginServiceImpl implements LoginService {
         Long userid = loginUser.getUser().getId();
         redisCache.deleteObject("login:" + userid);
         map.put("message", "注销成功");
+        return map;
+    }
+
+    @Override
+    public Map<String, String> verify(String token) {
+        Map<String, String> map = new HashMap<>();
+        String userid;
+        try {
+            Claims claims = JwtUtil.parseJWT(token);
+            userid = claims.getSubject();
+            Object object = redisCache.getCacheObject("login:" + userid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("token非法");
+        }
         return map;
     }
 }

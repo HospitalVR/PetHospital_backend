@@ -10,4 +10,6 @@ public interface LoginService {
 
     Map<String, String> logout();
 
+    Map<String, String> verify(String token);
+
 }
