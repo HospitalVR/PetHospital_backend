@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("case")
 public class CaseController {
 
@@ -22,6 +22,7 @@ public class CaseController {
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public ResponseEntity<List<Case>> findAll() {
+        System.out.println("执行findAll方法");
         try {
             List<Case> cases = caseService.findAll();
             return ResponseEntity.status(HttpStatus.OK).body(cases);

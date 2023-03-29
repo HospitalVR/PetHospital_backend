@@ -27,16 +27,19 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        //获取token
 
-        if (request.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            response.setStatus(HttpStatus.OK.value());
+        String token = request.getHeader("token");
+        response.setHeader("Access-Control-Allow-Origin", "*"); // 允许所有跨域地址
+        response.setHeader("Access-Control-Allow-Headers", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.addHeader("Access-Control-Max-Age", "3600");
+        if (((HttpServletRequest) request).getMethod().equals("OPTIONS")) {
+            response.setStatus(200);
             return;
         }
-
-        //获取token
-        String token = request.getHeader("token");
-
         if (!StringUtils.hasText(token)) {
+            // 放行
             filterChain.doFilter(request, response);
             return;
         }
