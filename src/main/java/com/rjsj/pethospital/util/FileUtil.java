@@ -12,11 +12,13 @@ import java.util.Objects;
 
 public class FileUtil {
 
+    public static String fileParent = "E://res";
+
     public static String saveFile(String fileName, MultipartFile file) {
         if (file == null || Objects.equals(file.getOriginalFilename(), ""))
             return null;
         String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-        File newFile = new File("E:/res", fileName + suffix);
+        File newFile = new File(FileUtil.fileParent, fileName + suffix);
         try {
             file.transferTo(newFile);
             if (FileUtil.isImage(newFile))
@@ -26,6 +28,12 @@ public class FileUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static void removeFile(String fileName) {
+        File file = new File(FileUtil.fileParent, fileName);
+        if (file.exists())
+            file.delete();
     }
 
     public static boolean isImage(File file) {

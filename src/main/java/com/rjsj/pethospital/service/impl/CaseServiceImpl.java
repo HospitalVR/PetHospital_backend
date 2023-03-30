@@ -65,6 +65,26 @@ public class CaseServiceImpl implements CaseService {
         Case caseExist = caseRepository.findByName1(hospitalCase.getName1());
         if (caseExist != null) {
             hospitalCase.setId(caseExist.getId());
+            if ((hospitalCase.getName2() == null || hospitalCase.getName2().equals("")) && caseExist.getName2() != null)
+                hospitalCase.setName2(caseExist.getName2());
+            if ((hospitalCase.getName3() == null || hospitalCase.getName3().equals("")) && caseExist.getName3() != null)
+                hospitalCase.setName3(caseExist.getName3());
+            if ((hospitalCase.getTreat2() == null || hospitalCase.getTreat2().equals("")) && caseExist.getTreat2() != null)
+                hospitalCase.setTreat2(caseExist.getTreat2());
+            if ((hospitalCase.getTreat3() == null || hospitalCase.getTreat3().equals("")) && caseExist.getTreat3() != null)
+                hospitalCase.setTreat3(caseExist.getTreat3());
+            if ((hospitalCase.getCheck2() == null || hospitalCase.getCheck2().equals("")) && caseExist.getCheck2() != null)
+                hospitalCase.setCheck2(caseExist.getCheck2());
+            if ((hospitalCase.getCheck3() == null || hospitalCase.getCheck3().equals("")) && caseExist.getCheck3() != null)
+                hospitalCase.setCheck3(caseExist.getCheck3());
+            if ((hospitalCase.getResult2() == null || hospitalCase.getResult2().equals("")) && caseExist.getResult2() != null)
+                hospitalCase.setResult2(caseExist.getResult2());
+            if ((hospitalCase.getResult3() == null || hospitalCase.getResult3().equals("")) && caseExist.getResult3() != null)
+                hospitalCase.setResult3(caseExist.getResult3());
+            if ((hospitalCase.getPlan2() == null || hospitalCase.getPlan2().equals("")) && caseExist.getPlan2() != null)
+                hospitalCase.setPlan2(caseExist.getPlan2());
+            if ((hospitalCase.getPlan3() == null || hospitalCase.getPlan3().equals("")) && caseExist.getPlan3() != null)
+                hospitalCase.setPlan3(caseExist.getPlan3());
         }
         return caseRepository.save(hospitalCase);
     }
@@ -106,6 +126,27 @@ public class CaseServiceImpl implements CaseService {
 
     @Override
     public void deleteByName(String name) {
+        Case hospitalCase = caseRepository.findByName1(name);
+        if (hospitalCase.getName2() != null && !hospitalCase.getName2().equals(""))
+            FileUtil.removeFile(hospitalCase.getName2());
+        if (hospitalCase.getName3() != null && !hospitalCase.getName3().equals(""))
+            FileUtil.removeFile(hospitalCase.getName3());
+        if (hospitalCase.getTreat2() != null && !hospitalCase.getTreat2().equals(""))
+            FileUtil.removeFile(hospitalCase.getTreat2());
+        if (hospitalCase.getTreat3() != null && !hospitalCase.getTreat3().equals(""))
+            FileUtil.removeFile(hospitalCase.getTreat3());
+        if (hospitalCase.getCheck2() != null && !hospitalCase.getCheck2().equals(""))
+            FileUtil.removeFile(hospitalCase.getCheck2());
+        if (hospitalCase.getCheck3() != null && !hospitalCase.getCheck3().equals(""))
+            FileUtil.removeFile(hospitalCase.getCheck3());
+        if (hospitalCase.getResult2() != null && !hospitalCase.getResult2().equals(""))
+            FileUtil.removeFile(hospitalCase.getResult2());
+        if (hospitalCase.getResult3() != null && !hospitalCase.getResult3().equals(""))
+            FileUtil.removeFile(hospitalCase.getResult3());
+        if (hospitalCase.getPlan2() != null && !hospitalCase.getPlan2().equals(""))
+            FileUtil.removeFile(hospitalCase.getPlan2());
+        if (hospitalCase.getPlan3() != null && !hospitalCase.getPlan3().equals(""))
+            FileUtil.removeFile(hospitalCase.getPlan3());
         caseRepository.deleteByName1(name);
     }
 }
