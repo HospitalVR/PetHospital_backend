@@ -1,6 +1,5 @@
 package com.rjsj.pethospital.service;
 
-import com.rjsj.pethospital.entity.Case;
 import com.rjsj.pethospital.entity.Question;
 
 import java.util.List;
@@ -14,7 +13,11 @@ public interface QuestionService {
 
     Question findByContent(String name);
 
+    List<Question> findAllByContent(String name);
+
     Question save(Question question);
+
+
 
     void deleteById(Long id);
 }
