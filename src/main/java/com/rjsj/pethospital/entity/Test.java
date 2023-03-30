@@ -3,6 +3,8 @@ package com.rjsj.pethospital.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "test")
@@ -12,9 +14,17 @@ public class Test {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long testpaper_id;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "test_paper",
+            joinColumns = @JoinColumn(name = "test_id"),
+            inverseJoinColumns = @JoinColumn(name = "paper_id"))
+    private Paper testpaper;
 
-    private long student_id;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "test_user",
+            joinColumns = @JoinColumn(name = "test_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users= new ArrayList<>();
 
     private long start_time;
 
