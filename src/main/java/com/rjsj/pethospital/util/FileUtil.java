@@ -1,5 +1,6 @@
 package com.rjsj.pethospital.util;
 
+import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -46,6 +47,15 @@ public class FileUtil {
         return false;
     }
 
+    public static boolean isVideo(File file) {
+        String suffix = file.getName().substring(file.getName().lastIndexOf(".") + 1);
+        switch (suffix) {
+            case "mp4":
+                return true;
+        }
+        return false;
+    }
+
     public static void addMark(File file) throws IOException {
         Image srcImg = ImageIO.read(file);
         int srcImgWidth = srcImg.getWidth(null);
@@ -73,6 +83,10 @@ public class FileUtil {
         System.out.println("添加水印完成");
         outImgStream.flush();
         outImgStream.close();
+    }
+
+    public static void videoAddMark(File file) throws IOException {
+        FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file);
     }
 
     public static int getWatermarkLength(String waterMarkContent, Graphics2D graphics2D) {

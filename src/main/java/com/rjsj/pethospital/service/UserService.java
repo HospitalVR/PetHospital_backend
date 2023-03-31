@@ -11,8 +11,6 @@ public interface UserService {
 
     User save(User user);
 
-    Map<String, String> updatePassword(String userName, String oldPassword, String newPassword);
-
     void deleteByName(String name);
 
 }
