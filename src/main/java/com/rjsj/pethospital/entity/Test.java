@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class Test {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users= new ArrayList<>();
 
-    private long start_time;
+    private Date start_time = new Date();
 
-    private long end_time;
+    private Date end_time = new Date();
 }

@@ -1,30 +1,32 @@
 package com.rjsj.pethospital.controller;
 
-import com.rjsj.pethospital.entity.Drug;
-import com.rjsj.pethospital.service.DrugService;
+import com.rjsj.pethospital.entity.Record;
+import com.rjsj.pethospital.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("drug")
-public class DrugController {
-
+@RequestMapping("record")
+public class RecordController {
     @Autowired
-    private DrugService drugService;
+    private RecordService recordService;
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public ResponseEntity<List<Drug>> findAll(){
+    public ResponseEntity<List<Record>> findAll(){
         try {
-            List<Drug> drugs = drugService.findAll();
-            if(drugs.isEmpty())
+            List<Record> records = recordService.findAll();
+            if(records.isEmpty())
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-            return ResponseEntity.status(HttpStatus.OK).body(drugs);
+            return ResponseEntity.status(HttpStatus.OK).body(records);
         }
         catch (Exception e){
             e.printStackTrace();
@@ -35,8 +37,8 @@ public class DrugController {
     @RequestMapping(value = "/findAllByName", method = RequestMethod.GET)
     public ResponseEntity<List<String>> findAllByName(String name) {
         try {
-            List<String> drugsName = drugService.findAllByName(name);
-            return ResponseEntity.status(HttpStatus.OK).body(drugsName);
+            List<String> recordsName = recordService.findAllByName(name);
+            return ResponseEntity.status(HttpStatus.OK).body(recordsName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,13 +46,13 @@ public class DrugController {
     }
 
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
-    public ResponseEntity<Drug> findById(Long id) {
+    public ResponseEntity<Record> findById(Long id) {
         try {
-            Drug drug = drugService.findById(id).orElse(null);
-            if (drug == null)
+            Record record = recordService.findById(id).orElse(null);
+            if (record == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
-            return ResponseEntity.status(HttpStatus.OK).body(drug);
+            return ResponseEntity.status(HttpStatus.OK).body(record);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,13 +60,13 @@ public class DrugController {
     }
 
     @RequestMapping(value = "/findByName", method = RequestMethod.GET)
-    public ResponseEntity<Drug> findByName(String name) {
+    public ResponseEntity<Record> findByName(String name) {
         try {
-            Drug drug = drugService.findByName(name);
-            if (drug == null)
+            Record record = recordService.findByName(name);
+            if (record == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 
-            return ResponseEntity.status(HttpStatus.OK).body(drug);
+            return ResponseEntity.status(HttpStatus.OK).body(record);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,25 +74,29 @@ public class DrugController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<Drug> save(HttpServletRequest request) {
-        Drug drug = new Drug();
-        drug.setName(request.getParameter("name"));
-        drug.setPrice(Double.parseDouble(request.getParameter("price")));
-        drug.setDescription(request.getParameter("description"));
-        Drug saveDrug = drugService.save(drug);
-        return ResponseEntity.status(HttpStatus.OK).body(saveDrug);
+    public ResponseEntity<Record> save(HttpServletRequest request) {
+        Record record = new Record();
+        record.setName(request.getParameter("name"));
+        record.setBreed(request.getParameter("breed"));
+        record.setAge(request.getParameter("age"));
+        record.setGender(request.getParameter("gender"));
+        record.setColor(request.getParameter("color"));
+        record.setOwner(request.getParameter("owner"));
+        record.setPhone(request.getParameter("phone"));
+
+        Record saveRecord = recordService.save(record);
+        return ResponseEntity.status(HttpStatus.OK).body(saveRecord);
     }
 
     @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
-        drugService.deleteById(id);
+        recordService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
-        drugService.deleteByName(name);
+        recordService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
 }

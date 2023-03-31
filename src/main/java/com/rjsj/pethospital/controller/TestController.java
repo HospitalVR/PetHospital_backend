@@ -81,7 +81,7 @@ public class TestController {
 
 
     @ApiOperation(value = "删除考试")
-    @RequestMapping(value = "/deleteTestById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Test> deleteTestById(Long id) {
         testService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
