@@ -114,7 +114,7 @@ public class PaperController {
     }
 
     @ApiOperation(value = "删除试卷")
-    @RequestMapping(value = "/deletePaperById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Paper> deletePaperById(Long id) {
         paperService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
