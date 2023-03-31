@@ -1,6 +1,10 @@
 package com.rjsj.pethospital.util;
 
 import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.Frame;
+import org.bytedeco.javacv.Java2DFrameUtils;
+import org.bytedeco.opencv.opencv_core.IplImage;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -15,6 +19,8 @@ public class FileUtil {
 
     public static String fileParent = "E://res";
 
+    public static String textWatermark = "虚拟宠物医院学习系统";
+
     public static String saveFile(String fileName, MultipartFile file) {
         if (file == null || Objects.equals(file.getOriginalFilename(), ""))
             return null;
@@ -24,6 +30,8 @@ public class FileUtil {
             file.transferTo(newFile);
             if (FileUtil.isImage(newFile))
                 FileUtil.addMark(newFile);
+//            else if (FileUtil.isVideo(newFile))
+//                FileUtil.videoAddMark(newFile);
             return newFile.getName();
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,7 +75,6 @@ public class FileUtil {
         Graphics2D graphics2D = bufImg.createGraphics();
         graphics2D.drawImage(srcImg, 0, 0, srcImgWidth, srcImgHeight, null);
 
-        String textWatermark = "虚拟宠物医院学习系统";
 
         graphics2D.setColor(new Color(255, 255, 255, 128));
         graphics2D.setFont(new Font("微软雅黑", Font.BOLD, 30));
@@ -87,6 +94,59 @@ public class FileUtil {
 
     public static void videoAddMark(File file) throws IOException {
         FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file);
+        try {
+            frameGrabber.start();
+            String fileName = FileUtil.fileParent + File.separator + "test.mp4";
+            System.out.println("文件名-->>" + fileName);
+            FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(fileName, frameGrabber.getImageWidth(), frameGrabber.getImageHeight(), frameGrabber.getAudioChannels());
+            recorder.setSampleRate(frameGrabber.getSampleRate());
+            recorder.setFrameRate(frameGrabber.getFrameRate());
+            recorder.setTimestamp(frameGrabber.getTimestamp());
+            recorder.setVideoBitrate(frameGrabber.getVideoBitrate());
+            recorder.setVideoCodec(frameGrabber.getVideoCodec());
+
+            Frame frame;
+            recorder.start();
+            int index = 0;
+            while (true) {
+                frame = frameGrabber.grabFrame();
+                if (frame == null) {
+                    System.out.println("视频处理完成");
+                    break;
+                }
+                //判断音频
+                System.out.println("音频 == " + (frame.samples == null) + ", 视频 == " + (frame.image == null));
+                //判断图片帧
+                if (frame.image != null) {
+                    IplImage iplImage = Java2DFrameUtils.toIplImage(frame);
+                    BufferedImage buffImg = Java2DFrameUtils.toBufferedImage(iplImage);
+                    Graphics2D graphics2D = buffImg.createGraphics();
+
+                    graphics2D.setColor(new Color(255, 255, 255, 128));
+                    graphics2D.setFont(new Font("微软雅黑", Font.BOLD, 30));
+                    int x = (iplImage.width() - getWatermarkLength(textWatermark, graphics2D)) / 2;
+                    int y = iplImage.height() / 2;
+                    graphics2D.drawString(textWatermark, x, y);
+                    graphics2D.dispose();
+
+                    Frame newFrame = Java2DFrameUtils.toFrame(buffImg);
+                    recorder.record(newFrame);
+                }
+                //设置音频
+                if (frame.samples != null) {
+                    recorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
+                }
+                if (index % 20 == 0)
+                    System.out.println("帧值 = " + index);
+                index++;
+            }
+
+            recorder.stop();
+            recorder.release();
+            frameGrabber.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static int getWatermarkLength(String waterMarkContent, Graphics2D graphics2D) {
