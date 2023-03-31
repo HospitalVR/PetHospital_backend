@@ -15,6 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByUserTypeEquals(String userType);
 
+    int countAllByUserName(String userName);
+
     @Transactional
     void deleteByUserName(String userName);
 }

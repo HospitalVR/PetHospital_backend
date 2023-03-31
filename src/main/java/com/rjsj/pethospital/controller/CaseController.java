@@ -81,7 +81,9 @@ public class CaseController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<FullCase> save(HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(caseService.save(request));
+        Case saveCase = caseService.save(request);
+        //caseService.addMark(saveCase);
+        return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));
     }
 
     @RequestMapping(value = "/deleteById", method = RequestMethod.GET)

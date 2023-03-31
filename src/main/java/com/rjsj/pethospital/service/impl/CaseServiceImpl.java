@@ -3,15 +3,18 @@ package com.rjsj.pethospital.service.impl;
 import com.rjsj.pethospital.entity.Case;
 import com.rjsj.pethospital.entity.CaseType;
 import com.rjsj.pethospital.entity.FullCase;
+import com.rjsj.pethospital.entity.PartCase;
 import com.rjsj.pethospital.repository.CaseRepository;
 import com.rjsj.pethospital.repository.CaseTypeRepository;
 import com.rjsj.pethospital.service.CaseService;
 import com.rjsj.pethospital.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.*;
 
 @Service
@@ -90,7 +93,7 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public FullCase save(HttpServletRequest request) {
+    public Case save(HttpServletRequest request) {
         Case hospitalCase = new Case();
         hospitalCase.setType(request.getParameter("type"));
         hospitalCase.setName1(request.getParameter("name1"));
@@ -116,7 +119,40 @@ public class CaseServiceImpl implements CaseService {
         hospitalCase.setPlan3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan3")));
 
         Case saveCase = save(hospitalCase);
-        return new FullCase(saveCase);
+
+        return saveCase;
+    }
+
+    @Async
+    public void addMark(Case saveCase) {
+        process(saveCase.getName2());
+        process(saveCase.getCheck2());
+        process(saveCase.getTreat2());
+        process(saveCase.getResult2());
+        process(saveCase.getPlan2());
+        process(saveCase.getName3());
+        process(saveCase.getCheck3());
+        process(saveCase.getTreat3());
+        process(saveCase.getResult3());
+        process(saveCase.getPlan3());
+    }
+
+    private String process(String fileName) {
+        if (fileName == null)
+            return null;
+        File file = new File(FileUtil.fileParent, fileName);
+        if (file.exists()) {
+            try {
+                if (FileUtil.isImage(file)) {
+                    return FileUtil.addMark(file);
+                } else if (FileUtil.isVideo(file)) {
+                    return FileUtil.videoAddMark(file);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     @Override

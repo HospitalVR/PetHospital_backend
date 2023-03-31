@@ -28,10 +28,6 @@ public class FileUtil {
         File newFile = new File(FileUtil.fileParent, fileName + suffix);
         try {
             file.transferTo(newFile);
-            if (FileUtil.isImage(newFile))
-                FileUtil.addMark(newFile);
-//            else if (FileUtil.isVideo(newFile))
-//                FileUtil.videoAddMark(newFile);
             return newFile.getName();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,7 +60,7 @@ public class FileUtil {
         return false;
     }
 
-    public static void addMark(File file) throws IOException {
+    public static String addMark(File file) throws IOException {
         Image srcImg = ImageIO.read(file);
         int srcImgWidth = srcImg.getWidth(null);
         int srcImgHeight = srcImg.getHeight(null);
@@ -90,13 +86,17 @@ public class FileUtil {
         System.out.println("添加水印完成");
         outImgStream.flush();
         outImgStream.close();
+
+        return file.getName();
     }
 
-    public static void videoAddMark(File file) throws IOException {
+    public static String videoAddMark(File file) throws IOException {
         FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file);
         try {
             frameGrabber.start();
-            String fileName = FileUtil.fileParent + File.separator + "test.mp4";
+            String name=file.getName();
+            file.getName().substring(file.getName().lastIndexOf(".") + 1);
+            String fileName = FileUtil.fileParent + File.separator + file.getName();
             System.out.println("文件名-->>" + fileName);
             FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(fileName, frameGrabber.getImageWidth(), frameGrabber.getImageHeight(), frameGrabber.getAudioChannels());
             recorder.setSampleRate(frameGrabber.getSampleRate());
@@ -111,12 +111,8 @@ public class FileUtil {
             while (true) {
                 frame = frameGrabber.grabFrame();
                 if (frame == null) {
-                    System.out.println("视频处理完成");
                     break;
                 }
-                //判断音频
-                System.out.println("音频 == " + (frame.samples == null) + ", 视频 == " + (frame.image == null));
-                //判断图片帧
                 if (frame.image != null) {
                     IplImage iplImage = Java2DFrameUtils.toIplImage(frame);
                     BufferedImage buffImg = Java2DFrameUtils.toBufferedImage(iplImage);
@@ -132,7 +128,6 @@ public class FileUtil {
                     Frame newFrame = Java2DFrameUtils.toFrame(buffImg);
                     recorder.record(newFrame);
                 }
-                //设置音频
                 if (frame.samples != null) {
                     recorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
                 }
@@ -147,6 +142,8 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return file.getName();
     }
 
     public static int getWatermarkLength(String waterMarkContent, Graphics2D graphics2D) {

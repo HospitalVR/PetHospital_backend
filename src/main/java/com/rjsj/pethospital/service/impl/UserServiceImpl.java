@@ -26,6 +26,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         user.setUserType("user");
+        if (user.getId() != null && user.getId() != 0) {
+            Optional<User> option = userRepository.findById(user.getId());
+            if (option.isPresent() && !option.get().getUserName().equals(user.getUserName())) {
+                if (userRepository.findByUserName(user.getUserName()).isPresent())
+                    return null;
+            }
+        } else {
+            if (userRepository.findByUserName(user.getUserName()).isPresent())
+                return null;
+        }
         return userRepository.save(user);
     }
 

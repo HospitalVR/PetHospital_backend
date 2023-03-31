@@ -50,7 +50,10 @@ public class UserController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<User> save(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
+        User saveUser = userService.save(user);
+        if (saveUser != null)
+            return ResponseEntity.status(HttpStatus.OK).body(saveUser);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)

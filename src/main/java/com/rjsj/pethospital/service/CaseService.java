@@ -20,7 +20,9 @@ public interface CaseService {
 
     Case findByName(String name);
 
-    FullCase save(HttpServletRequest request);
+    Case save(HttpServletRequest request);
+
+    void addMark(Case saveCase);
 
     void deleteById(Long id);
 
