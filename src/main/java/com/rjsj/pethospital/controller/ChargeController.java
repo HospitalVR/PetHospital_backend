@@ -58,13 +58,13 @@ public class ChargeController {
         return ResponseEntity.status(HttpStatus.OK).body(saveCharge);
     }
 
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
         chargeService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/deleteByName", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
         chargeService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();

@@ -104,13 +104,13 @@ public class StaffController {
         Staff saveStaff = staffService.save(staff);
         return ResponseEntity.status(HttpStatus.OK).body(saveStaff);
     }
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
         staffService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/deleteByName", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
         staffService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();

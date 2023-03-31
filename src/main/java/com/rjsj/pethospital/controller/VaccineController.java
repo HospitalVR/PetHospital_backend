@@ -84,13 +84,13 @@ public class VaccineController {
         return ResponseEntity.status(HttpStatus.OK).body(saveVaccine);
     }
 
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
         vaccineService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/deleteByName", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
         vaccineService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();
