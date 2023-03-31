@@ -14,7 +14,7 @@ public interface InpatientService {
 
     Inpatient findByName(String name);
 
-    Inpatient save(Inpatient hospitalDrug);
+    Inpatient save(Inpatient hospitalInpatient);
 
     void deleteById(Long id);
 

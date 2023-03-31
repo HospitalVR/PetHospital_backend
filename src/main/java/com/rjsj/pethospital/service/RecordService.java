@@ -14,7 +14,7 @@ public interface RecordService {
 
     Record findByName(String name);
 
-    Record save(Record hospitalDrug);
+    Record save(Record hospitalRecord);
 
     void deleteById(Long id);
 
