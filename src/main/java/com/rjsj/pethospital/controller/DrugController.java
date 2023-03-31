@@ -82,13 +82,13 @@ public class DrugController {
         return ResponseEntity.status(HttpStatus.OK).body(saveDrug);
     }
 
-    @RequestMapping(value = "/deleteById", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteById", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteById(Long id) {
         drugService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @RequestMapping(value = "/deleteByName", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteByName", method = RequestMethod.GET)
     public ResponseEntity<Void> deleteByName(String name) {
         drugService.deleteByName(name);
         return ResponseEntity.status(HttpStatus.OK).build();

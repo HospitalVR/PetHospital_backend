@@ -53,14 +53,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
     }
 
-    @RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
-    public ResponseEntity updatePassword(HttpServletRequest request) {
-        String userName = request.getParameter("userName");
-        String old = request.getParameter("old");
-        String newPassword = request.getParameter("new");
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updatePassword(userName, old, newPassword));
-    }
-
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public ResponseEntity<Void> delete(String name) {
         userService.deleteByName(name);
