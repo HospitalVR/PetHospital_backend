@@ -20,7 +20,7 @@ public class Staff {
     private int experience;
     private String phone;
     private String idnumber;
-    private String date;
+    private Date date;
     private String place;
     private String edu;
 
