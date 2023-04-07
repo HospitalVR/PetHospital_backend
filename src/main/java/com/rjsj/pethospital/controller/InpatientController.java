@@ -78,7 +78,7 @@ public class InpatientController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<Inpatient> save(HttpServletRequest request) {
         Inpatient inpatient = new Inpatient();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         inpatient.setName(request.getParameter("name"));
         inpatient.setBreed(request.getParameter("breed"));
         inpatient.setOwner(request.getParameter("owner"));

@@ -14,7 +14,7 @@ public class Record {
 
     private String name;
     private String breed;
-    private String age;
+    private int age;
     private String gender;
     private String color;
     private String owner;

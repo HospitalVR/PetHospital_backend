@@ -78,7 +78,7 @@ public class RecordController {
         Record record = new Record();
         record.setName(request.getParameter("name"));
         record.setBreed(request.getParameter("breed"));
-        record.setAge(request.getParameter("age"));
+        record.setAge(Integer.parseInt(request.getParameter("age")));
         record.setGender(request.getParameter("gender"));
         record.setColor(request.getParameter("color"));
         record.setOwner(request.getParameter("owner"));

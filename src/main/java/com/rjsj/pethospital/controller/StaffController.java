@@ -92,7 +92,7 @@ public class StaffController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<Staff> save(HttpServletRequest request) {
         Staff staff = new Staff();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         staff.setName(request.getParameter("name"));
         staff.setAge(Integer.parseInt(request.getParameter("age")));
         staff.setGender(request.getParameter("gender"));
@@ -101,7 +101,7 @@ public class StaffController {
         staff.setPhone(request.getParameter("phone"));
         staff.setIdnumber(request.getParameter("idnumber"));
         try {
-            staff.setDate(sdf.parse(request.getParameter("admission")));
+            staff.setDate(sdf.parse(request.getParameter("date")));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
