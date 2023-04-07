@@ -33,13 +33,13 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Paper addQuestion(Paper paper, List<Long> questions_id) {
         List<Question> list = questionRepository.findAll();
-        List<Question> result = new ArrayList<>();
-        if(paper.getQuestions()!=null){
-            for(Question question : list)
-                if(questions_id.contains(question.getId()) && !result.contains(question))
-                    result.add(question);
-            paper.setQuestions(result);
-        }
+        List<Question> result = paper.getQuestions();
+
+        for(Question question : list)
+            if(questions_id.contains(question.getId()) && !result.contains(question))
+                result.add(question);
+        paper.setQuestions(result);
+
         return paperRepository.save(paper);
     }
 
