@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -90,6 +92,7 @@ public class StaffController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<Staff> save(HttpServletRequest request) {
         Staff staff = new Staff();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         staff.setName(request.getParameter("name"));
         staff.setAge(Integer.parseInt(request.getParameter("age")));
         staff.setGender(request.getParameter("gender"));
@@ -97,7 +100,11 @@ public class StaffController {
         staff.setExperience(Integer.parseInt(request.getParameter("experience")));
         staff.setPhone(request.getParameter("phone"));
         staff.setIdnumber(request.getParameter("idnumber"));
-        staff.setDate(request.getParameter("date;"));
+        try {
+            staff.setDate(sdf.parse(request.getParameter("admission")));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         staff.setPlace(request.getParameter("place"));
         staff.setEdu(request.getParameter("edu"));
 
