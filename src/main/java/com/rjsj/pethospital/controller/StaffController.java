@@ -97,7 +97,7 @@ public class StaffController {
         staff.setExperience(Integer.parseInt(request.getParameter("experience")));
         staff.setPhone(request.getParameter("phone"));
         staff.setIdnumber(request.getParameter("idnumber"));
-        staff.setDate(request.getParameter("date;"));
+        staff.setDate(request.getParameter("date"));
         staff.setPlace(request.getParameter("place"));
         staff.setEdu(request.getParameter("edu"));
 
