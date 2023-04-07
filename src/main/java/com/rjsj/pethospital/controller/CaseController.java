@@ -82,7 +82,7 @@ public class CaseController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseEntity<FullCase> save(HttpServletRequest request) {
         Case saveCase = caseService.save(request);
-        //caseService.addMark(saveCase);
+        caseService.addMark(saveCase);
         return ResponseEntity.status(HttpStatus.OK).body(new FullCase(saveCase));
     }
 

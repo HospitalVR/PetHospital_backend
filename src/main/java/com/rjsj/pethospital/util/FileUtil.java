@@ -82,23 +82,28 @@ public class FileUtil {
         String tarImgPath = file.getPath();
         String format = file.getName().substring(file.getName().lastIndexOf(".") + 1);
         FileOutputStream outImgStream = new FileOutputStream(tarImgPath);
-        ImageIO.write(bufImg, format, outImgStream);
+        //ImageIO.write(bufImg, format, outImgStream);
+        String fileName = file.getName().replace("." + format, "-mark." + format);
+        ImageIO.write(bufImg, format, new File(FileUtil.fileParent, fileName));
         System.out.println("添加水印完成");
         outImgStream.flush();
         outImgStream.close();
 
-        return file.getName();
+        removeFile(file.getName());
+        return fileName;
     }
 
-    public static String videoAddMark(File file) throws IOException {
+    public static String videoAddMark(File file) {
         FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file);
+        String format = file.getName().substring(file.getName().lastIndexOf("."));
+        String fileName = file.getName().replace(format, "-mark" + format);
         try {
             frameGrabber.start();
-            String name=file.getName();
-            file.getName().substring(file.getName().lastIndexOf(".") + 1);
-            String fileName = FileUtil.fileParent + File.separator + file.getName();
-            System.out.println("文件名-->>" + fileName);
-            FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(fileName, frameGrabber.getImageWidth(), frameGrabber.getImageHeight(), frameGrabber.getAudioChannels());
+            System.out.println("文件名-->>" + FileUtil.fileParent + File.separator + fileName);
+            FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(
+                    FileUtil.fileParent + File.separator + fileName,
+                    frameGrabber.getImageWidth(), frameGrabber.getImageHeight(),
+                    frameGrabber.getAudioChannels());
             recorder.setSampleRate(frameGrabber.getSampleRate());
             recorder.setFrameRate(frameGrabber.getFrameRate());
             recorder.setTimestamp(frameGrabber.getTimestamp());
@@ -120,8 +125,10 @@ public class FileUtil {
 
                     graphics2D.setColor(new Color(255, 255, 255, 128));
                     graphics2D.setFont(new Font("微软雅黑", Font.BOLD, 30));
-                    int x = (iplImage.width() - getWatermarkLength(textWatermark, graphics2D)) / 2;
-                    int y = iplImage.height() / 2;
+                    //int x = (iplImage.width() - getWatermarkLength(textWatermark, graphics2D)) / 2;
+                    //int y = iplImage.height() / 2;
+                    int x = (index * 3) % iplImage.width();
+                    int y = (index * 3) % iplImage.height();
                     graphics2D.drawString(textWatermark, x, y);
                     graphics2D.dispose();
 
@@ -142,8 +149,8 @@ public class FileUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return file.getName();
+        removeFile(file.getName());
+        return fileName;
     }
 
     public static int getWatermarkLength(String waterMarkContent, Graphics2D graphics2D) {

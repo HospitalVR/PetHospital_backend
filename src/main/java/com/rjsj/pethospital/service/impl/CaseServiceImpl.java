@@ -118,27 +118,26 @@ public class CaseServiceImpl implements CaseService {
         hospitalCase.setPlan2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan2")));
         hospitalCase.setPlan3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan3")));
 
-        Case saveCase = save(hospitalCase);
-
-        return saveCase;
+        return save(hospitalCase);
     }
 
     @Async
     public void addMark(Case saveCase) {
-        process(saveCase.getName2());
-        process(saveCase.getCheck2());
-        process(saveCase.getTreat2());
-        process(saveCase.getResult2());
-        process(saveCase.getPlan2());
-        process(saveCase.getName3());
-        process(saveCase.getCheck3());
-        process(saveCase.getTreat3());
-        process(saveCase.getResult3());
-        process(saveCase.getPlan3());
+        saveCase.setName2(process(saveCase.getName2()));
+        saveCase.setCheck2(process(saveCase.getCheck2()));
+        saveCase.setTreat2(process(saveCase.getTreat2()));
+        saveCase.setResult2(process(saveCase.getResult2()));
+        saveCase.setPlan2(process(saveCase.getPlan2()));
+        saveCase.setName3(process(saveCase.getName3()));
+        saveCase.setCheck3(process(saveCase.getCheck3()));
+        saveCase.setTreat3(process(saveCase.getTreat3()));
+        saveCase.setResult3(process(saveCase.getResult3()));
+        saveCase.setPlan3(process(saveCase.getPlan3()));
+        save(saveCase);
     }
 
     private String process(String fileName) {
-        if (fileName == null)
+        if (fileName == null || fileName.equals(""))
             return null;
         File file = new File(FileUtil.fileParent, fileName);
         if (file.exists()) {
