@@ -128,6 +128,7 @@ public class CaseServiceImpl implements CaseService {
         saveCase.setTreat2(process(saveCase.getTreat2()));
         saveCase.setResult2(process(saveCase.getResult2()));
         saveCase.setPlan2(process(saveCase.getPlan2()));
+        save(saveCase);
         saveCase.setName3(process(saveCase.getName3()));
         saveCase.setCheck3(process(saveCase.getCheck3()));
         saveCase.setTreat3(process(saveCase.getTreat3()));
