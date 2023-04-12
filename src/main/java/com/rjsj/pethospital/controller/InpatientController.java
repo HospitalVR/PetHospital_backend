@@ -94,8 +94,8 @@ public class InpatientController {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        inpatient.setDay(Long.parseLong(request.getParameter("breed")));
-        inpatient.setCost(Double.parseDouble(request.getParameter("breed")));
+        inpatient.setDay(Long.parseLong(request.getParameter("day")));
+        inpatient.setCost(Double.parseDouble(request.getParameter("cost")));
 
         Inpatient saveInpatient = inpatientService.save(inpatient);
         return ResponseEntity.status(HttpStatus.OK).body(saveInpatient);
