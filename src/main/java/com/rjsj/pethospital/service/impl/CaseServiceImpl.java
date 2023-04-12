@@ -68,26 +68,6 @@ public class CaseServiceImpl implements CaseService {
         Case caseExist = caseRepository.findByName1(hospitalCase.getName1());
         if (caseExist != null) {
             hospitalCase.setId(caseExist.getId());
-            if ((hospitalCase.getName2() == null || hospitalCase.getName2().equals("")) && caseExist.getName2() != null)
-                hospitalCase.setName2(caseExist.getName2());
-            if ((hospitalCase.getName3() == null || hospitalCase.getName3().equals("")) && caseExist.getName3() != null)
-                hospitalCase.setName3(caseExist.getName3());
-            if ((hospitalCase.getTreat2() == null || hospitalCase.getTreat2().equals("")) && caseExist.getTreat2() != null)
-                hospitalCase.setTreat2(caseExist.getTreat2());
-            if ((hospitalCase.getTreat3() == null || hospitalCase.getTreat3().equals("")) && caseExist.getTreat3() != null)
-                hospitalCase.setTreat3(caseExist.getTreat3());
-            if ((hospitalCase.getCheck2() == null || hospitalCase.getCheck2().equals("")) && caseExist.getCheck2() != null)
-                hospitalCase.setCheck2(caseExist.getCheck2());
-            if ((hospitalCase.getCheck3() == null || hospitalCase.getCheck3().equals("")) && caseExist.getCheck3() != null)
-                hospitalCase.setCheck3(caseExist.getCheck3());
-            if ((hospitalCase.getResult2() == null || hospitalCase.getResult2().equals("")) && caseExist.getResult2() != null)
-                hospitalCase.setResult2(caseExist.getResult2());
-            if ((hospitalCase.getResult3() == null || hospitalCase.getResult3().equals("")) && caseExist.getResult3() != null)
-                hospitalCase.setResult3(caseExist.getResult3());
-            if ((hospitalCase.getPlan2() == null || hospitalCase.getPlan2().equals("")) && caseExist.getPlan2() != null)
-                hospitalCase.setPlan2(caseExist.getPlan2());
-            if ((hospitalCase.getPlan3() == null || hospitalCase.getPlan3().equals("")) && caseExist.getPlan3() != null)
-                hospitalCase.setPlan3(caseExist.getPlan3());
         }
         return caseRepository.save(hospitalCase);
     }
@@ -114,9 +94,10 @@ public class CaseServiceImpl implements CaseService {
         } else {
             hospitalCase.setName2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name2")));
         }
-        if (files.getFile("name3") != null && files.getFile("name3").equals("")){
+
+        if (request.getParameter("name3") != null && request.getParameter("name3").equals("")){
             hospitalCase.setName3(existCase.getName3());
-        } else if (files.getFile("name3") != null && files.getFile("name3").equals("delete")) {
+        } else if (request.getParameter("name3") != null && request.getParameter("name3").equals("delete")) {
             FileUtil.removeFile(existCase.getName3());
             hospitalCase.setName3("");
         } else {
@@ -125,17 +106,18 @@ public class CaseServiceImpl implements CaseService {
 
 
 
-        if (hospitalCase.getTreat2() != null && hospitalCase.getTreat2().equals("")){
+        if (request.getParameter("treat2") != null && request.getParameter("treat2").equals("")){
             hospitalCase.setTreat2(existCase.getTreat2());
-        } else if (hospitalCase.getTreat2() != null && hospitalCase.getTreat2().equals("delete")) {
+        } else if (request.getParameter("treat2") != null && request.getParameter("treat2").equals("delete")) {
             FileUtil.removeFile(existCase.getTreat2());
             hospitalCase.setTreat2("");
         } else {
             hospitalCase.setTreat2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("treat2")));
         }
-        if (hospitalCase.getTreat3() != null && hospitalCase.getTreat3().equals("")){
+
+        if (request.getParameter("treat3") != null && request.getParameter("treat3").equals("")){
             hospitalCase.setTreat3(existCase.getTreat3());
-        } else if (hospitalCase.getTreat3() != null && hospitalCase.getTreat3().equals("delete")) {
+        } else if (request.getParameter("treat3") != null && request.getParameter("treat3").equals("delete")) {
             FileUtil.removeFile(existCase.getTreat3());
             hospitalCase.setTreat3("");
         } else {
@@ -144,17 +126,18 @@ public class CaseServiceImpl implements CaseService {
 
 
 
-        if (hospitalCase.getResult2() != null && hospitalCase.getResult2().equals("")){
+        if (request.getParameter("result2") != null && request.getParameter("result2").equals("")){
             hospitalCase.setResult2(existCase.getResult2());
-        } else if (hospitalCase.getResult2() != null && hospitalCase.getResult2().equals("delete")) {
+        } else if (request.getParameter("result2") != null && request.getParameter("result2").equals("delete")) {
             FileUtil.removeFile(existCase.getResult2());
             hospitalCase.setResult2("");
         } else {
             hospitalCase.setResult2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("result2")));
         }
-        if (hospitalCase.getResult3() != null && hospitalCase.getResult3().equals("")){
+
+        if (request.getParameter("result3") != null && request.getParameter("result3").equals("")){
             hospitalCase.setResult3(existCase.getResult3());
-        } else if (hospitalCase.getResult3() != null && hospitalCase.getResult3().equals("delete")) {
+        } else if (request.getParameter("result3") != null && request.getParameter("result3").equals("delete")) {
             FileUtil.removeFile(existCase.getResult3());
             hospitalCase.setResult3("");
         } else {
@@ -163,17 +146,17 @@ public class CaseServiceImpl implements CaseService {
 
 
 
-        if (hospitalCase.getCheck2() != null && hospitalCase.getCheck2().equals("")){
+        if (request.getParameter("check2") != null && request.getParameter("check2").equals("")){
             hospitalCase.setCheck2(existCase.getCheck2());
-        } else if (hospitalCase.getCheck2() != null && hospitalCase.getCheck2().equals("delete")) {
+        } else if (request.getParameter("check2") != null && request.getParameter("check2").equals("delete")) {
             FileUtil.removeFile(existCase.getCheck2());
             hospitalCase.setCheck2("");
         } else {
             hospitalCase.setCheck2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("check2")));
         }
-        if (hospitalCase.getCheck3() != null && hospitalCase.getCheck3().equals("")){
+        if (request.getParameter("check3") != null && request.getParameter("check3").equals("")){
             hospitalCase.setCheck3(existCase.getCheck3());
-        } else if (hospitalCase.getCheck3() != null && hospitalCase.getCheck3().equals("delete")) {
+        } else if (request.getParameter("check3") != null && request.getParameter("check3").equals("delete")) {
             FileUtil.removeFile(existCase.getCheck3());
             hospitalCase.setCheck3("");
         } else {
@@ -182,17 +165,17 @@ public class CaseServiceImpl implements CaseService {
 
 
 
-        if (hospitalCase.getPlan2() != null && hospitalCase.getPlan2().equals("")){
+        if (request.getParameter("plan2") != null && request.getParameter("plan2").equals("")){
             hospitalCase.setPlan2(existCase.getPlan2());
-        } else if (hospitalCase.getPlan2() != null && hospitalCase.getPlan2().equals("delete")) {
+        } else if (request.getParameter("plan2") != null && request.getParameter("plan2").equals("delete")) {
             FileUtil.removeFile(existCase.getPlan2());
             hospitalCase.setPlan2("");
         } else {
             hospitalCase.setPlan2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("plan2")));
         }
-        if (hospitalCase.getPlan3() != null && hospitalCase.getPlan3().equals("")){
+        if (request.getParameter("plan3") != null && request.getParameter("plan3").equals("")){
             hospitalCase.setPlan3(existCase.getPlan3());
-        } else if (hospitalCase.getPlan3() != null && hospitalCase.getPlan3().equals("delete")) {
+        } else if (request.getParameter("plan3") != null && request.getParameter("plan3").equals("delete")) {
             FileUtil.removeFile(existCase.getPlan3());
             hospitalCase.setPlan3("");
         } else {
