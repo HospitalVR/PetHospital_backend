@@ -17,7 +17,7 @@ import java.util.UUID;
  */
 public class JwtUtil {
 
-    public static final Long JWT_TTL = 60 * 60 * 1000L;
+    public static final Long JWT_TTL = 6 * 60 * 60 * 1000L;
     public static final String JWT_KEY = "hospital";
 
     public static String getUUID() {
