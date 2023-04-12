@@ -102,21 +102,74 @@ public class CaseServiceImpl implements CaseService {
         hospitalCase.setResult1(request.getParameter("result1"));
         hospitalCase.setPlan1(request.getParameter("plan1"));
 
+        Case existCase = caseRepository.findByName1(hospitalCase.getName1());
+
         MultipartHttpServletRequest files = (MultipartHttpServletRequest) request;
-        hospitalCase.setName2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name2")));
-        hospitalCase.setName3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name3")));
 
-        hospitalCase.setTreat2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("treat2")));
-        hospitalCase.setTreat3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("treat3")));
+        if (hospitalCase.getName2() != null && hospitalCase.getName2().equals("delete")) {
+            FileUtil.removeFile(existCase.getName2());
+            hospitalCase.setName2("");
+        } else {
+            hospitalCase.setName2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name2")));
+        }
+        if (hospitalCase.getName3() != null && hospitalCase.getName3().equals("delete")) {
+            FileUtil.removeFile(existCase.getName3());
+            hospitalCase.setName3("");
+        } else {
+            hospitalCase.setName3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name3")));
+        }
 
-        hospitalCase.setCheck2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("check2")));
-        hospitalCase.setCheck3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("check3")));
+        if (hospitalCase.getTreat2() != null && hospitalCase.getTreat2().equals("delete")) {
+            FileUtil.removeFile(existCase.getTreat2());
+            hospitalCase.setTreat2("");
+        } else {
+            hospitalCase.setTreat2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("treat2")));
+        }
+        if (hospitalCase.getTreat3() != null && hospitalCase.getTreat3().equals("delete")) {
+            FileUtil.removeFile(existCase.getTreat3());
+            hospitalCase.setTreat3("");
+        } else {
+            hospitalCase.setTreat3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("treat3")));
+        }
 
-        hospitalCase.setResult2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result2")));
-        hospitalCase.setResult3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result3")));
+        if (hospitalCase.getResult2() != null && hospitalCase.getResult2().equals("delete")) {
+            FileUtil.removeFile(existCase.getResult2());
+            hospitalCase.setResult2("");
+        } else {
+            hospitalCase.setResult2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("result2")));
+        }
+        if (hospitalCase.getResult3() != null && hospitalCase.getResult3().equals("delete")) {
+            FileUtil.removeFile(existCase.getResult3());
+            hospitalCase.setResult3("");
+        } else {
+            hospitalCase.setResult3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("result3")));
+        }
 
-        hospitalCase.setPlan2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan2")));
-        hospitalCase.setPlan3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan3")));
+        if (hospitalCase.getCheck2() != null && hospitalCase.getCheck2().equals("delete")) {
+            FileUtil.removeFile(existCase.getCheck2());
+            hospitalCase.setCheck2("");
+        } else {
+            hospitalCase.setCheck2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("check2")));
+        }
+        if (hospitalCase.getCheck3() != null && hospitalCase.getCheck3().equals("delete")) {
+            FileUtil.removeFile(existCase.getCheck3());
+            hospitalCase.setCheck3("");
+        } else {
+            hospitalCase.setCheck3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("check3")));
+        }
+
+        if (hospitalCase.getPlan2() != null && hospitalCase.getPlan2().equals("delete")) {
+            FileUtil.removeFile(existCase.getPlan2());
+            hospitalCase.setPlan2("");
+        } else {
+            hospitalCase.setPlan2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("plan2")));
+        }
+        if (hospitalCase.getPlan3() != null && hospitalCase.getPlan3().equals("delete")) {
+            FileUtil.removeFile(existCase.getPlan3());
+            hospitalCase.setPlan3("");
+        } else {
+            hospitalCase.setPlan3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("plan3")));
+        }
 
         return save(hospitalCase);
     }
@@ -140,6 +193,8 @@ public class CaseServiceImpl implements CaseService {
     private String process(String fileName) {
         if (fileName == null || fileName.equals(""))
             return null;
+        else if (fileName.contains("mark"))
+            return fileName;
         File file = new File(FileUtil.fileParent, fileName);
         if (file.exists()) {
             try {
