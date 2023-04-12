@@ -36,9 +36,13 @@ public class FileUtil {
     }
 
     public static void removeFile(String fileName) {
-        File file = new File(FileUtil.fileParent, fileName);
-        if (file.exists())
-            file.delete();
+        try {
+            File file = new File(FileUtil.fileParent, fileName);
+            if (file.exists())
+                file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static boolean isImage(File file) {
