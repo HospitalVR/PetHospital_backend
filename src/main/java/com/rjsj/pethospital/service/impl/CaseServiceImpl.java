@@ -106,9 +106,9 @@ public class CaseServiceImpl implements CaseService {
 
         MultipartHttpServletRequest files = (MultipartHttpServletRequest) request;
 
-        if (files.getFile("name2") != null && files.getFile("name2").equals("")){
+        if (request.getParameter("name2") != null && request.getParameter("name2").equals("")){
             hospitalCase.setName2(existCase.getName2());
-        } else if (files.getFile("name2") != null && files.getFile("name2").equals("delete")) {
+        } else if (request.getParameter("name2") != null && request.getParameter("name2").equals("delete")) {
             FileUtil.removeFile(existCase.getName2());
             hospitalCase.setName2("");
         } else {
