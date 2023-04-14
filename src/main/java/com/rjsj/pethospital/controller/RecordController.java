@@ -94,6 +94,13 @@ public class RecordController {
         record.setColor(request.getParameter("color"));
         record.setOwner(request.getParameter("owner"));
         record.setPhone(request.getParameter("phone"));
+        record.setDisease(request.getParameter("disease"));
+        record.setDoctor(request.getParameter("doctor"));
+        record.setCharge(request.getParameter("charge"));
+        record.setVaccine(request.getParameter("vaccine"));
+        record.setAssay(request.getParameter("assay"));
+        record.setInpatient(request.getParameter("inpatient"));
+        record.setDepartment(request.getParameter("department"));
 
         Record saveRecord = recordService.save(record);
         return ResponseEntity.status(HttpStatus.OK).body(saveRecord);
