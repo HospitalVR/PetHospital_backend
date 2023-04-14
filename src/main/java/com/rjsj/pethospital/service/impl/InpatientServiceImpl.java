@@ -33,6 +33,11 @@ public class InpatientServiceImpl implements InpatientService {
     }
 
     @Override
+    public List<Inpatient> findAllByReason(String reason) {
+        return inpatientRepository.findAllByReasonContains(reason);
+    }
+
+    @Override
     public Optional<Inpatient> findById(Long id) {
         return inpatientRepository.findById(id);
     }
@@ -60,4 +65,6 @@ public class InpatientServiceImpl implements InpatientService {
     public void deleteByName(String name) {
         inpatientRepository.deleteByName(name);
     }
+
+
 }
