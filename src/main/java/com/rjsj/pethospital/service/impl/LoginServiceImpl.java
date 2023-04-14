@@ -64,6 +64,7 @@ public class LoginServiceImpl implements LoginService {
             userid = claims.getSubject();
             LoginUser user = redisCache.getCacheObject("login:" + userid);
             map.put("userName", user.getUsername());
+            map.put("type", user.getUser().getUserType());
         } catch (Exception e) {
             e.printStackTrace();
         }
