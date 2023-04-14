@@ -45,6 +45,17 @@ public class RecordController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @RequestMapping(value = "/findAllByDisease",method = RequestMethod.GET)
+    public ResponseEntity<List<Record>> findAllByDisease(String disease){
+        try {
+            List<Record> records = recordService.findAllByDisease((disease));
+            return ResponseEntity.status(HttpStatus.OK).body(records);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity<Record> findById(Long id) {
         try {

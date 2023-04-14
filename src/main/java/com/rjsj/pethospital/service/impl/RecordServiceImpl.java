@@ -31,6 +31,9 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
+    public List<Record> findAllByDisease(String disease){ return recordRepository.findAllByDiseaseContains(disease); }
+
+    @Override
     public Optional<Record> findById(Long id) {
         return recordRepository.findById(id);
     }

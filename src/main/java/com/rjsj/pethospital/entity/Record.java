@@ -19,4 +19,13 @@ public class Record {
     private String color;
     private String owner;
     private String phone;
+    private String disease;
+    private String doctor;
+    private String charge;
+    private String drug;
+    private String vaccine;
+    private String assay;
+    private String inpatient;
+    private String department;
+
 }
