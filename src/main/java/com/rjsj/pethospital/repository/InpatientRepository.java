@@ -14,4 +14,6 @@ public interface InpatientRepository extends JpaRepository<Inpatient, Long> {
     void deleteByName(String name);
 
     List<Inpatient> findAllByNameContains(String name);
+
+    List<Inpatient> findAllByReasonContains(String name);
 }

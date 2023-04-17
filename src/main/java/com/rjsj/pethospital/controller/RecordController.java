@@ -45,6 +45,17 @@ public class RecordController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @RequestMapping(value = "/findAllByDisease",method = RequestMethod.GET)
+    public ResponseEntity<List<Record>> findAllByDisease(String disease){
+        try {
+            List<Record> records = recordService.findAllByDisease((disease));
+            return ResponseEntity.status(HttpStatus.OK).body(records);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity<Record> findById(Long id) {
         try {
@@ -83,6 +94,13 @@ public class RecordController {
         record.setColor(request.getParameter("color"));
         record.setOwner(request.getParameter("owner"));
         record.setPhone(request.getParameter("phone"));
+        record.setDisease(request.getParameter("disease"));
+        record.setDoctor(request.getParameter("doctor"));
+        record.setCharge(request.getParameter("charge"));
+        record.setVaccine(request.getParameter("vaccine"));
+        record.setAssay(request.getParameter("assay"));
+        record.setInpatient(request.getParameter("inpatient"));
+        record.setDepartment(request.getParameter("department"));
 
         Record saveRecord = recordService.save(record);
         return ResponseEntity.status(HttpStatus.OK).body(saveRecord);

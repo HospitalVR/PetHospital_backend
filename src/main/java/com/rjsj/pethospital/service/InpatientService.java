@@ -19,4 +19,6 @@ public interface InpatientService {
     void deleteById(Long id);
 
     void deleteByName(String name);
+
+    List<Inpatient> findAllByReason(String reason);
 }

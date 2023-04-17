@@ -13,6 +13,8 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     @Transactional
     void deleteByName(String name);
 
+    List<Record> findAllByDiseaseContains(String disease);
+
     List<Record> findAllByNameContains(String name);
 
 }

@@ -16,6 +16,8 @@ public interface RecordService {
 
     Record save(Record hospitalRecord);
 
+    List<Record> findAllByDisease(String disease);
+
     void deleteById(Long id);
 
     void deleteByName(String name);

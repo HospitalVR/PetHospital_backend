@@ -47,6 +47,17 @@ public class InpatientController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
+    @RequestMapping(value = "/findAllByReason", method = RequestMethod.GET)
+    public ResponseEntity<List<Inpatient>> findAllByReason(String reason) {
+        try {
+            List<Inpatient> inpatientsName = inpatientService.findAllByReason(reason);
+            return ResponseEntity.status(HttpStatus.OK).body(inpatientsName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
     @RequestMapping(value = "/findById", method = RequestMethod.GET)
     public ResponseEntity<Inpatient> findById(Long id) {
         try {
