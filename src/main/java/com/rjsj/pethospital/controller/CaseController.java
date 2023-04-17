@@ -70,8 +70,7 @@ public class CaseController {
         try {
             Case hospitalCase = caseService.findByName(name);
             if (hospitalCase == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
+                return ResponseEntity.status(HttpStatus.OK).body(null);
             return ResponseEntity.status(HttpStatus.OK).body(new FullCase(hospitalCase));
         } catch (Exception e) {
             e.printStackTrace();

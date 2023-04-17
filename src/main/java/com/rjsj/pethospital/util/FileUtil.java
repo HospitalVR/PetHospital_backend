@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class FileUtil {
@@ -21,10 +23,21 @@ public class FileUtil {
 
     public static String textWatermark = "虚拟宠物医院学习系统";
 
+    public static List<String> getFilesName() {
+        File[] files = new File(fileParent).listFiles();
+        List<String> fileNames = new ArrayList<>();
+        for (File file : files) {
+            if (file.isFile()) {
+                fileNames.add(file.getName());
+            }
+        }
+        return fileNames;
+    }
+
     public static String saveFile(String fileName, MultipartFile file) {
         if (file == null || Objects.equals(file.getOriginalFilename(), ""))
             return null;
-        String suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
         File newFile = new File(FileUtil.fileParent, fileName + suffix);
         try {
             file.transferTo(newFile);
