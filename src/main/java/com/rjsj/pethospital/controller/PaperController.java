@@ -1,21 +1,21 @@
 package com.rjsj.pethospital.controller;
 
 import com.rjsj.pethospital.entity.Paper;
+import com.rjsj.pethospital.entity.Question;
+import com.rjsj.pethospital.repository.QuestionRepository;
 import com.rjsj.pethospital.service.PaperService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -27,6 +27,9 @@ public class PaperController {
 
     @Autowired
     private PaperService paperService;
+
+    @Autowired
+    QuestionRepository questionRepository;
 
     @ApiOperation(value = "找到所有试卷")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
@@ -100,7 +103,7 @@ public class PaperController {
     @RequestMapping(value = "/addPaper", method = RequestMethod.POST)
     public ResponseEntity<Paper> addPaper(HttpServletRequest request) {
         Paper paper = new Paper();
-        int period = Integer.parseInt(request.getParameter("period"));
+        long period = Integer.parseInt(request.getParameter("period"));
         paper.setPeriod(period);
 
         String ids = request.getParameter("question_id");
@@ -118,6 +121,19 @@ public class PaperController {
     public ResponseEntity<Paper> deletePaperById(Long id) {
         paperService.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @ApiOperation(value = "修改试卷")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Paper> save(HttpServletRequest request) {
+        long id = Integer.parseInt(request.getParameter("id"));
+
+        Paper paper = paperService.findById(id).orElse(null);
+        long period = Integer.parseInt(request.getParameter("period"));
+        paper.setPeriod(period);
+
+        paper = paperService.save(paper);
+        return ResponseEntity.status(HttpStatus.OK).body(paper);
     }
 }
 
