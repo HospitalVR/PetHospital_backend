@@ -10,18 +10,41 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 public class FileUtil {
 
     public static String fileParent = "E://res";
 
     public static String textWatermark = "虚拟宠物医院学习系统";
+
+    public static Map<String, byte[]> getImageFiles() {
+        Map<String, byte[]> result = new HashMap<>();
+        File[] files = new File(fileParent).listFiles();
+        List<String> fileNames = new ArrayList<>();
+        for (File file : files) {
+            if (file.isFile() && isImage(file)) {
+                try {
+                    FileInputStream fis = new FileInputStream(file);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
+                    byte[] b = new byte[1024];
+                    int n;
+                    while ((n = fis.read(b)) != -1) {
+                        bos.write(b, 0, n);
+                    }
+                    fis.close();
+                    byte[] data = bos.toByteArray();
+                    bos.close();
+                    result.put(file.getName(), data);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
 
     public static List<String> getFilesName() {
         File[] files = new File(fileParent).listFiles();
@@ -38,7 +61,7 @@ public class FileUtil {
         if (file == null || Objects.equals(file.getOriginalFilename(), ""))
             return null;
         String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
-        File newFile = new File(FileUtil.fileParent, fileName + suffix);
+        File newFile = new File(FileUtil.fileParent, fileName.contains(".") ? fileName : fileName + suffix);
         try {
             file.transferTo(newFile);
             return newFile.getName();

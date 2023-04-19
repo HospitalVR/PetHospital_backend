@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -30,5 +31,10 @@ public class FileController {
     @RequestMapping(value = "/getFilesName", method = RequestMethod.GET)
     public ResponseEntity<List<String>> getFilesName() {
         return ResponseEntity.status(HttpStatus.OK).body(FileUtil.getFilesName());
+    }
+
+    @RequestMapping(value = "/getImageFiles", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, byte[]>> getImageFiles() {
+        return ResponseEntity.status(HttpStatus.OK).body(FileUtil.getImageFiles());
     }
 }
