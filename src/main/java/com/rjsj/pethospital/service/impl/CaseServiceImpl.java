@@ -89,7 +89,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("name2") != null) {
             hospitalCase.setName2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name2")));
         } else if (request.getParameter("name2") == null || request.getParameter("name2").equals("")) {
-            hospitalCase.setName2(existCase.getName2());
+            if (existCase != null)
+                hospitalCase.setName2(existCase.getName2());
         } else if (request.getParameter("name2").equals("delete")) {
             if (existCase.getName2() != null && !existCase.getName2().equals(""))
                 FileUtil.removeFile(existCase.getName2());
@@ -99,7 +100,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("name3") != null) {
             hospitalCase.setName3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-1", files.getFile("name3")));
         } else if (request.getParameter("name3") == null || request.getParameter("name3").equals("")) {
-            hospitalCase.setName3(existCase.getName3());
+            if (existCase != null)
+                hospitalCase.setName3(existCase.getName3());
         } else if (request.getParameter("name3").equals("delete")) {
             if (existCase.getName3() != null && !existCase.getName3().equals(""))
                 FileUtil.removeFile(existCase.getName3());
@@ -110,7 +112,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("check2") != null) {
             hospitalCase.setCheck2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("check2")));
         } else if (request.getParameter("check2") == null || request.getParameter("check2").equals("")) {
-            hospitalCase.setCheck2(existCase.getCheck2());
+            if (existCase != null)
+                hospitalCase.setCheck2(existCase.getCheck2());
         } else if (request.getParameter("check2").equals("delete")) {
             if (existCase.getCheck2() != null && !existCase.getCheck2().equals(""))
                 FileUtil.removeFile(existCase.getCheck2());
@@ -120,7 +123,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("check3") != null) {
             hospitalCase.setCheck3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-2", files.getFile("check3")));
         } else if (request.getParameter("check3") == null || request.getParameter("check3").equals("")) {
-            hospitalCase.setCheck3(existCase.getCheck3());
+            if (existCase != null)
+                hospitalCase.setCheck3(existCase.getCheck3());
         } else if (request.getParameter("check3").equals("delete")) {
             if (existCase.getCheck3() != null && !existCase.getCheck3().equals(""))
                 FileUtil.removeFile(existCase.getCheck3());
@@ -131,7 +135,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("treat2") != null) {
             hospitalCase.setTreat2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("treat2")));
         } else if (request.getParameter("treat2") == null || request.getParameter("treat2").equals("")) {
-            hospitalCase.setTreat2(existCase.getTreat2());
+            if (existCase != null)
+                hospitalCase.setTreat2(existCase.getTreat2());
         } else if (request.getParameter("treat2").equals("delete")) {
             if (existCase.getTreat2() != null && !existCase.getTreat2().equals(""))
                 FileUtil.removeFile(existCase.getTreat2());
@@ -141,7 +146,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("treat3") != null) {
             hospitalCase.setTreat3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-3", files.getFile("treat3")));
         } else if (request.getParameter("treat3") == null || request.getParameter("treat3").equals("")) {
-            hospitalCase.setTreat3(existCase.getTreat3());
+            if (existCase != null)
+                hospitalCase.setTreat3(existCase.getTreat3());
         } else if (request.getParameter("treat3").equals("delete")) {
             if (existCase.getTreat3() != null && !existCase.getTreat3().equals(""))
                 FileUtil.removeFile(existCase.getTreat3());
@@ -152,7 +158,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("result2") != null) {
             hospitalCase.setResult2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result2")));
         } else if (request.getParameter("result2") == null || request.getParameter("result2").equals("")) {
-            hospitalCase.setResult2(existCase.getResult2());
+            if (existCase != null)
+                hospitalCase.setResult2(existCase.getResult2());
         } else if (request.getParameter("result2").equals("delete")) {
             if (existCase.getResult2() != null && !existCase.getResult2().equals(""))
                 FileUtil.removeFile(existCase.getResult2());
@@ -162,7 +169,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("result3") != null) {
             hospitalCase.setResult3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-4", files.getFile("result3")));
         } else if (request.getParameter("result3") == null || request.getParameter("result3").equals("")) {
-            hospitalCase.setResult3(existCase.getResult3());
+            if (existCase != null)
+                hospitalCase.setResult3(existCase.getResult3());
         } else if (request.getParameter("result3").equals("delete")) {
             if (existCase.getResult3() != null && !existCase.getResult3().equals(""))
                 FileUtil.removeFile(existCase.getResult3());
@@ -173,7 +181,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("plan2") != null) {
             hospitalCase.setPlan2(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan2")));
         } else if (request.getParameter("plan2") == null || request.getParameter("plan2").equals("")) {
-            hospitalCase.setPlan2(existCase.getPlan2());
+            if (existCase != null)
+                hospitalCase.setPlan2(existCase.getPlan2());
         } else if (request.getParameter("plan2").equals("delete")) {
             if (existCase.getPlan2() != null && !existCase.getPlan2().equals(""))
                 FileUtil.removeFile(existCase.getPlan2());
@@ -183,7 +192,8 @@ public class CaseServiceImpl implements CaseService {
         if (files.getFile("plan3") != null) {
             hospitalCase.setPlan3(FileUtil.saveFile("case-" + hospitalCase.getName1() + "-5", files.getFile("plan3")));
         } else if (request.getParameter("plan3") == null || request.getParameter("plan3").equals("")) {
-            hospitalCase.setPlan3(existCase.getPlan3());
+            if (existCase != null)
+                hospitalCase.setPlan3(existCase.getPlan3());
         } else if (request.getParameter("plan3").equals("delete")) {
             if (existCase.getPlan3() != null && !existCase.getPlan3().equals(""))
                 FileUtil.removeFile(existCase.getPlan3());
