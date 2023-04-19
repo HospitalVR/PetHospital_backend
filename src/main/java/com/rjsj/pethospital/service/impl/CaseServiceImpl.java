@@ -83,6 +83,8 @@ public class CaseServiceImpl implements CaseService {
         hospitalCase.setPlan1(request.getParameter("plan1"));
 
         Case existCase = caseRepository.findByName1(hospitalCase.getName1());
+        if (existCase != null)
+            hospitalCase.setType(existCase.getType());
 
         MultipartHttpServletRequest files = (MultipartHttpServletRequest) request;
 
