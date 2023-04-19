@@ -1,9 +1,7 @@
 package com.rjsj.pethospital.util;
 
-import org.bytedeco.javacv.FFmpegFrameGrabber;
-import org.bytedeco.javacv.FFmpegFrameRecorder;
+import org.bytedeco.javacv.*;
 import org.bytedeco.javacv.Frame;
-import org.bytedeco.javacv.Java2DFrameUtils;
 import org.bytedeco.opencv.opencv_core.IplImage;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.nio.Buffer;
 import java.util.*;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class FileUtil {
     public static Map<String, byte[]> getImageFiles() {
         Map<String, byte[]> result = new HashMap<>();
         File[] files = new File(fileParent).listFiles();
-        List<String> fileNames = new ArrayList<>();
         for (File file : files) {
             if (file.isFile() && isImage(file)) {
                 try {
@@ -32,6 +30,30 @@ public class FileUtil {
                     fis.read(fileBytes);
                     fis.close();
                     result.put(file.getName(), fileBytes);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return result;
+    }
+
+    public static Map<String, byte[]> getVideoFiles() {
+        Map<String, byte[]> result = new HashMap<>();
+        File[] files = new File(fileParent).listFiles();
+        for (File file : files) {
+            if (file.isFile() && isVideo(file)) {
+                try {
+                    FFmpegFrameGrabber frameGrabber = new FFmpegFrameGrabber(file);
+                    frameGrabber.start();
+                    Frame frame = frameGrabber.grabKeyFrame();
+                    Java2DFrameConverter java2dFrameConverter = new Java2DFrameConverter();
+                    BufferedImage bufferedImage = java2dFrameConverter.convert(frame);
+                    ByteArrayOutputStream out = new ByteArrayOutputStream();
+                    ImageIO.write(bufferedImage, "jpg", out);
+                    byte[] readFile = out.toByteArray();
+                    frameGrabber.stop();
+                    result.put(file.getName(), readFile);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -159,8 +181,6 @@ public class FileUtil {
 
                     graphics2D.setColor(new Color(255, 255, 255, 128));
                     graphics2D.setFont(new Font("微软雅黑", Font.BOLD, 30));
-                    //int x = (iplImage.width() - getWatermarkLength(textWatermark, graphics2D)) / 2;
-                    //int y = iplImage.height() / 2;
                     int x = (index * 3) % iplImage.width();
                     int y = (index * 3) % iplImage.height();
                     graphics2D.drawString(textWatermark, x, y);
@@ -172,8 +192,6 @@ public class FileUtil {
                 if (frame.samples != null) {
                     recorder.recordSamples(frame.sampleRate, frame.audioChannels, frame.samples);
                 }
-                if (index % 20 == 0)
-                    System.out.println("帧值 = " + index);
                 index++;
             }
 

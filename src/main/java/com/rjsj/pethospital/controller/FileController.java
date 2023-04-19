@@ -37,4 +37,9 @@ public class FileController {
     public ResponseEntity<Map<String, byte[]>> getImageFiles() {
         return ResponseEntity.status(HttpStatus.OK).body(FileUtil.getImageFiles());
     }
+
+    @RequestMapping(value = "/getVideoFiles", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, byte[]>> getVideoFiles() {
+        return ResponseEntity.status(HttpStatus.OK).body(FileUtil.getVideoFiles());
+    }
 }
