@@ -28,16 +28,10 @@ public class FileUtil {
             if (file.isFile() && isImage(file)) {
                 try {
                     FileInputStream fis = new FileInputStream(file);
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream(1024);
-                    byte[] b = new byte[1024];
-                    int n;
-                    while ((n = fis.read(b)) != -1) {
-                        bos.write(b, 0, n);
-                    }
+                    byte[] fileBytes = new byte[(int) file.length()];
+                    fis.read(fileBytes);
                     fis.close();
-                    byte[] data = bos.toByteArray();
-                    bos.close();
-                    result.put(file.getName(), data);
+                    result.put(file.getName(), fileBytes);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
