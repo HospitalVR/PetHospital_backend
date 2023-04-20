@@ -25,4 +25,6 @@ public class Vaccine {
     private String protection;
 
     private String side_effects;
+
+    private double price;
 }
