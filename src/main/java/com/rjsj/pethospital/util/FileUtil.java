@@ -116,6 +116,27 @@ public class FileUtil {
         return false;
     }
 
+    public static void totalAddMark() {
+        File[] files = new File(fileParent).listFiles();
+        for (File file : files) {
+            try {
+                if (file.isFile() && isImage(file)) {
+                    if (!file.getName().contains("mark")) {
+                        addMark(file);
+                        System.out.println(file.getName());
+                    }
+                } else if (file.isFile() && isVideo(file)) {
+                    if (!file.getName().contains("mark")) {
+                        videoAddMark(file);
+                        System.out.println(file.getName());
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static String addMark(File file) throws IOException {
         Image srcImg = ImageIO.read(file);
         int srcImgWidth = srcImg.getWidth(null);

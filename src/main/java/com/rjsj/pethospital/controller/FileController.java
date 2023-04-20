@@ -42,4 +42,10 @@ public class FileController {
     public ResponseEntity<Map<String, byte[]>> getVideoFiles() {
         return ResponseEntity.status(HttpStatus.OK).body(FileUtil.getVideoFiles());
     }
+
+    @RequestMapping(value = "/addMark", method = RequestMethod.GET)
+    public ResponseEntity addMark() {
+        FileUtil.totalAddMark();
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
