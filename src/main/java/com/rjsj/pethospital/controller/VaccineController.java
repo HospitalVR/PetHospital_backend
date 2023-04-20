@@ -80,6 +80,7 @@ public class VaccineController {
         vaccine.setTime(request.getParameter("time"));
         vaccine.setProtection(request.getParameter("protection"));
         vaccine.setSide_effects(request.getParameter("side_effects"));
+        vaccine.setPrice(Double.parseDouble(request.getParameter("price")));
         Vaccine saveVaccine = vaccineService.save(vaccine);
         return ResponseEntity.status(HttpStatus.OK).body(saveVaccine);
     }
