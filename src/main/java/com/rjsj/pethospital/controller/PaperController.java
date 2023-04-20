@@ -72,6 +72,7 @@ public class PaperController {
             if (paper == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             paper = paperService.addQuestion(paper, questions_id);
+            paper = paperService.save(paper);
             return ResponseEntity.status(HttpStatus.OK).body(paper);
         } catch (Exception e) {
             e.printStackTrace();
