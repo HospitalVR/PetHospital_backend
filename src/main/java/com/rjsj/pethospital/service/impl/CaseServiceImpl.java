@@ -34,7 +34,11 @@ public class CaseServiceImpl implements CaseService {
     @Override
     public Map<String, List<String>> findAllByType() {
         List<CaseType> caseTypes = caseTypeRepository.findAll();
-        Map map = new HashMap<String, List<String>>();
+        caseTypes.removeIf(caseType -> caseType.getType().equals("其他"));
+        CaseType otherType = new CaseType();
+        otherType.setType("其他");
+        caseTypes.add(otherType);
+        Map map = new LinkedHashMap<String, List<String>>();
         for (CaseType caseType : caseTypes) {
             List<Case> cases = caseRepository.findAllByType(caseType.getType());
             List<String> list = new ArrayList<>();
